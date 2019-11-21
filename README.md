@@ -1,0 +1,2 @@
+# MyAngularInventory
+Amandas System
