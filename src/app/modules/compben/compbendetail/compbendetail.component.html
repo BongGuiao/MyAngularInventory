@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr>
+
+<form [formGroup]="comptableFile" (submit) ="onSubmit()">
+    <div class="example-container">
+        <section>
+            <mat-form-field class="full-width">
+                <input readonly=true formControlName="id" matInput placeholder="Id">
+            </mat-form-field>
+
+            <mat-form-field  autocomplete="off" class="full-width">
+                <input  formControlName="description" matInput placeholder="Description">
+            </mat-form-field>
+        </section>
+        <section>
+            <div>
+                <mat-checkbox class="full-width" formControlName="taxable" (ngModelChange)="onChanges($event)">Subject to Taxation</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox class="full-width" formControlName="sssIncluded" (ngModelChange)="onChanges($event)">Subject to SSS Contribution</mat-checkbox>
+            </div>
+        </section>
+        <section>
+            <div>
+                <mat-checkbox class="full-width" formControlName="piIncluded" (ngModelChange)="onChanges($event)">Subject to HDMF Contribution</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox class="full-width" formControlName="phIncluded" (ngModelChange)="onChanges($event)">Subject to PHI Contribution</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox class="full-width" formControlName="tMonthIncluded" (ngModelChange)="onChanges($event)">Subject to 13th Month computation</mat-checkbox>
+            </div>
+        </section>
+      </div>
+
+      <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="dialog-button">Cancel</button>
+            <button type="submit" mat-button cdkFocusInitial class="dialog-button" [disabled]="!comptableFile.valid">Submit</button>
+    </mat-dialog-actions>
+</form>

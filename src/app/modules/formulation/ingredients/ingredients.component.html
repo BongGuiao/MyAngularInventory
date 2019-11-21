@@ -1,0 +1,50 @@
+<div>MATERIAL REQUIRED FOR ISSUANCE</div>
+
+<div class="mat-elevation-z8 search-div">
+    <mat-table [dataSource]="listData" matSort>
+
+        <ng-container matColumnDef="itemId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Item Code</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.itemId}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Item Description</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reqQty">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Req Qty</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.reqQty}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="unit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.unit}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="unitCost">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Unit Cost</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.unitCost}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+            Loading data...
+            </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+            No data.
+            </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+    
+    </mat-table>
+    <mat-paginator class="mat-table-header-color" [pageSizeOptions]="[8, 15, 25, 100]" [pageSize]="8" showFirstLastButtons></mat-paginator>
+ </div>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close class="dialog-button" color='primary'>Close</button>
+    <button type="submit" mat-button cdkFocusInitial class="dialog-button" color='primary'>Create Form Delivery</button>
+</mat-dialog-actions>
+

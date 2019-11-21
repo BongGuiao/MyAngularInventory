@@ -1,0 +1,179 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr>
+<form [formGroup]="employeeFile" (submit) ="onSubmit()">
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Information">
+        
+            <div class="example-container">
+                <mat-form-field class="three-width">
+                    <input matInput formControlName="id" placeholder="Computer Code">
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input  formControlName="employeeCode" matInput placeholder="Employee Code" (ngModelChange)="onChanges($event)">
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input  formControlName="biometricCode" matInput placeholder="Biometric Code">
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input formControlName="lastName" matInput placeholder="Last Name">
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input formControlName="firstName" matInput placeholder="First Name">
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input formControlName="middleName" matInput placeholder="Middle Name">
+                </mat-form-field>
+                
+                <mat-form-field class="three-width">
+                    <mat-label>Gender</mat-label>
+                    <mat-select matNativeControl formControlName="sex">
+                        <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                        {{gender.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <mat-label>Civil Status</mat-label>
+                    <mat-select matNativeControl formControlName="civilStatus">
+                        <mat-option *ngFor="let stat of status" [value]="stat.value">
+                        {{stat.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input formControlName="taxCode" matInput placeholder="Tax Code">
+                </mat-form-field>
+        
+                <mat-form-field class="three-width">
+                    <input formControlName="birthDate" [matDatepicker]="birthDate" matInput placeholder="Birth Date">
+                    <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                    <mat-datepicker #birthDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input formControlName="homePhone" matInput placeholder="Home Phone">
+                </mat-form-field>
+                <mat-form-field class="three-width">
+                    <input formControlName="mobileNumber" matInput placeholder="Cell Phone">
+                </mat-form-field>
+        
+                <mat-form-field class="half-width">
+                    <input formControlName="presentAddress" matInput placeholder="Present Address">
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                    <input formControlName="emailAddress" matInput placeholder="Email Address">
+                </mat-form-field>
+            </div>
+        </mat-tab>
+        <mat-tab label="Employment">
+            <mat-form-field class="three-width">
+              <input formControlName="dateHired" [matDatepicker]="dateHired"  matInput placeholder="Date Hired">
+              <mat-datepicker-toggle matSuffix [for]="dateHired"></mat-datepicker-toggle>
+              <mat-datepicker #dateHired></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="three-width">
+              <input formControlName="dateSeparated" [matDatepicker]="dateSeparated"  matInput placeholder="Date Separated">
+              <mat-datepicker-toggle matSuffix [for]="dateSeparated"></mat-datepicker-toggle>
+              <mat-datepicker #dateSeparated></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="three-width">
+              <input formControlName="dateRehired" [matDatepicker]="dateRehired"  matInput placeholder="Date Re-Hired">
+              <mat-datepicker-toggle matSuffix [for]="dateRehired"></mat-datepicker-toggle>
+              <mat-datepicker #dateRehired></mat-datepicker>
+            </mat-form-field>
+      
+            <mat-form-field class="three-width">
+              <input formControlName="position" matInput placeholder="Position">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+              <mat-label>Department</mat-label>
+              <mat-select matNativeControl formControlName="departmentId">
+                    <mat-option *ngFor="let department of departments" [value]="department.id">
+                    {{department.description}}
+                    </mat-option>
+               </mat-select>
+            </mat-form-field>
+            <mat-form-field class="three-width">
+              <input formControlName="branchId" matInput placeholder="Branch">
+            </mat-form-field>
+      
+            <mat-form-field class="three-width">
+              <input formControlName="section" matInput placeholder="Section">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+              <input formControlName="defaultShiftId" matInput placeholder="Default Shift">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+              <mat-label>Employment Status</mat-label>
+                <mat-select matNativeControl formControlName="employmentStatus">
+                    <mat-option *ngFor="let empStat of empStatus" [value]="empStat.value">
+                    {{empStat.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="sssNumber" matInput placeholder="SSS Number">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="philhealthNumber" matInput placeholder="Philhealth Number">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="pagibigNumber" matInput placeholder="Pagibig Number">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="tinNumber" matInput placeholder="TIN Number">
+            </mat-form-field>
+        </mat-tab>
+        <mat-tab label="Compensation">
+            <mat-form-field class="full-width">
+                <mat-label>Payment Mode</mat-label>
+                <mat-select matNativeControl formControlName="payMode" (ngModelChange)="onChanges($event)">
+                    <mat-option *ngFor="let pmode of paymode" [value]="pmode.value">
+                    {{pmode.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="basicSalary"  matInput placeholder="Basic Salary" (ngModelChange)="basicSalaryChange($event)">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="dailyRate"  matInput placeholder="Daily Rate" (ngModelChange)="dailyRateChange($event)" >
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="hourlyRate" matInput placeholder="Hourly Rate">
+            </mat-form-field>
+            <mat-checkbox class="checkbox-width" formControlName="sssFlag" (ngModelChange)="onChanges($event)">Deduct SSS Contribution</mat-checkbox>
+            <mat-form-field class="three-width">
+                <input formControlName="sssEmployeeShare" matInput placeholder="Employee Share">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="sssEmployerShare" matInput placeholder="Employer Share">
+            </mat-form-field>
+            <mat-checkbox class="checkbox-width" formControlName="philhealthFlag" (ngModelChange)="onChanges($event)">Deduct PHI Contribution</mat-checkbox>
+
+            <mat-form-field class="three-width">
+                <input formControlName="phEmployeeShare" matInput placeholder="Employee Share">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="phEmployerShare" matInput placeholder="Employer Share">
+            </mat-form-field>
+            <mat-checkbox class="checkbox-width-hdmf" formControlName="pagibigFlag" (ngModelChange)="onChanges($event)">Deduct HDMF Contribution</mat-checkbox>
+
+            <mat-form-field class="three-width">
+                <input formControlName="piEmployeeShare" matInput placeholder="Employee Share">
+            </mat-form-field>
+            <mat-form-field class="three-width">
+                <input formControlName="piEmployerShare" matInput placeholder="Employeer Share">
+            </mat-form-field>
+            <mat-checkbox class="checkbox-width" formControlName="taxFlag" (ngModelChange)="onChanges($event)">Deduct Tax Contribution</mat-checkbox>
+
+            <mat-form-field class="three-width">
+                <input formControlName="taxDeduction" matInput placeholder="Deduction">
+            </mat-form-field>
+        </mat-tab>
+    </mat-tab-group>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="dialog-button">Cancel</button>
+        <button type="submit" mat-button cdkFocusInitial class="dialog-button" [disabled]="!employeeFile.valid">Submit</button>
+    </mat-dialog-actions>
+</form>
+

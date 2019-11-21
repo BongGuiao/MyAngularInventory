@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form [formGroup]="formDetail" (submit) ="onSubmit()">
+    <div class="example-container">
+        <mat-form-field  autocomplete="off">
+            <input  formControlName="id" matInput placeholder="Id">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Item Description</mat-label>
+            <mat-select  matNativeControl formControlName="itemId" (ngModelChange)="onChangeItem($event)">
+                <mat-option *ngFor="let item of itemList" [value]="item.id">
+                {{item.description}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field  autocomplete="off">
+                <input type="number" formControlName="rrQty" matInput placeholder="RR Qty" (ngModelChange)="onChangeQuantityAndCost()">
+            </mat-form-field>
+        <mat-form-field>
+        <mat-label>Unit</mat-label>
+            <mat-select  matNativeControl formControlName="receivingId">
+                <mat-option *ngFor="let item of unitList" [value]="item.id">
+                {{item.description}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+ 
+        <mat-form-field  autocomplete="off">
+            <input  formControlName="unitCost" matInput placeholder="Unit Cost" (ngModelChange)="onChangeQuantityAndCost()">
+        </mat-form-field>
+        <p>Amount {{unitAmount}}</p>
+        <hr>
+    </div>
+    <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="dialog-button">Cancel</button>
+            <button type="submit" mat-button cdkFocusInitial class="dialog-button" [disabled]="!formDetail.valid">Submit</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,202 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<form [formGroup]="itemFile" (submit) ="onSubmit()">
+    <div class="example-container">
+            <div class="row">
+                <div *ngIf = "isVisible" class="col-sm-4">
+                    <mat-form-field>
+                        <input readonly=true formControlName="id" matInput placeholder="Id">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="itemCode" matInput placeholder="Item Code">
+                    </mat-form-field>
+                </div>
+               <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="posDescription" matInput placeholder="POS Description">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="description" matInput placeholder="Long Description">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <mat-label>Class</mat-label>
+                        <mat-select matNativeControl formControlName="classCode">
+                            <mat-option *ngFor="let item of classItem" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <mat-label>Receiving Unit</mat-label>
+                        <mat-select matNativeControl formControlName="receivingUnitId" (ngModelChange)="onChangeReceivingUnit($event)">
+                            <mat-option *ngFor="let item of units" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="receivingQtyValue" matInput placeholder="Receiving Inner Value">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label>Default Storage</mat-label>
+                        <mat-select matNativeControl formControlName="departmentId">
+                            <mat-option *ngFor="let item of departments" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label>Issuing Unit</mat-label>
+                        <mat-select matNativeControl formControlName="issuingUnitId" (ngModelChange)="onChangeIssuingUnit($event)">
+                            <mat-option *ngFor="let item of units" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="issuingQtyValue" matInput placeholder="Issuance Inner Value">
+                    </mat-form-field>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label>Item Group</mat-label>
+                        <mat-select matNativeControl formControlName="itemGroupId">
+                            <mat-option *ngFor="let item of itemGroup" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label>Major Group</mat-label>
+                        <mat-select matNativeControl formControlName="majorGroupId">
+                            <mat-option *ngFor="let item of majorGroup" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label>Over Group</mat-label>
+                        <mat-select matNativeControl formControlName="overGroupId">
+                            <mat-option *ngFor="let item of overGroup" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="parStock" matInput placeholder="Par Stock">
+                    </mat-form-field>
+                </div>
+            
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <input  formControlName="reorder" matInput placeholder="Re-Order Qty">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <input  formControlName="lastCost" matInput placeholder="Last Cost">
+                    </mat-form-field>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <input  formControlName="retailPrice" matInput placeholder="Retail Price">
+                    </mat-form-field>
+                </div>
+            
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <input  formControlName="wholeSalePrice" matInput placeholder="Wholesale Price">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <input  formControlName="lastMovement" matInput placeholder="Last Movement"  [matDatepicker]="lastMovement">
+                    </mat-form-field>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field  autocomplete="off">
+                        <input  formControlName="vatable" matInput placeholder="Vatable">
+                    </mat-form-field>
+                </div>
+            
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <input  formControlName="markUp" matInput placeholder="Mark Up">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field>
+                        <mat-label>Item Status</mat-label>
+                        <mat-select  matNativeControl formControlName="deleted">
+                            <mat-option *ngFor="let item of itemStatus" [value]="item.id">
+                            {{item.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>  
+            </div>
+            <div class="row">
+                <div *ngIf = "isVisible" class="col-sm-4">
+                    <mat-form-field>
+                        <input readonly=true formControlName="createdBy" matInput placeholder="Created By">
+                    </mat-form-field>
+                </div>  
+                <div *ngIf = "isVisible" class="col-sm-4">
+                    <mat-form-field>
+                    <input readonly=true formControlName="updatedBy" matInput placeholder="Updated By">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                        
+                </div>
+            </div>
+    </div>
+
+    <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="dialog-button">Cancel</button>
+            <button type="submit" mat-button cdkFocusInitial class="dialog-button" [disabled]="!itemFile.valid">Submit</button>
+    </mat-dialog-actions>
+</form>

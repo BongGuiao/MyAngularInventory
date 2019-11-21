@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<hr>
+
+<form [formGroup]="groupFile" (submit) ="onSubmit()">
+    <div class="example-container">
+        <mat-form-field>
+            <input readonly=true formControlName="id" matInput placeholder="Id">
+        </mat-form-field>
+
+        <mat-form-field  autocomplete="off">
+            <input  formControlName="description" matInput placeholder="Description">
+        </mat-form-field>
+
+        <mat-form-field>
+        <mat-label>Grouping</mat-label>
+        <mat-select formControlName ="groupCode" disabled=true>
+            <mat-option  value="01">Item Group</mat-option>
+            <mat-option  value="02">Major Group</mat-option>
+            <mat-option  value="03">Over Group</mat-option>
+        </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input readonly=true formControlName="createdBy" matInput placeholder="Created By">
+        </mat-form-field>
+
+        <mat-form-field>
+                <input readonly=true formControlName="updatedBy" matInput placeholder="Updated By">
+        </mat-form-field>
+      </div>
+
+      <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="dialog-button">Cancel</button>
+            <button type="submit" mat-button cdkFocusInitial class="dialog-button" [disabled]="!groupFile.valid">Submit</button>
+    </mat-dialog-actions>
+</form>
+

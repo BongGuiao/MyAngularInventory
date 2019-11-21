@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form [formGroup]="clientFile" (submit) ="onSubmit()">
+    <div class="example-container">
+        <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field>
+                    <input readonly=true formControlName="id" matInput placeholder="Id">
+                </mat-form-field>
+            </div>   
+            <div class="col-sm-4"> 
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="clientName" matInput placeholder="Name">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="address" matInput placeholder="Address">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="cellphoneNo" matInput placeholder="Cell Number">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">    
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="landLine" matInput placeholder="Land Line">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="faxNo" matInput placeholder="Fax Number">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="emailAddress" matInput placeholder="Email Address">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="vatNo" matInput placeholder="Vat Number">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="contactPerson" matInput placeholder="Contact Person">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="classCode" matInput placeholder="Class Code">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field>
+                <input readonly=true formControlName="createdBy" matInput placeholder="Created By">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field>
+                        <input readonly=true formControlName="updatedBy" matInput placeholder="Updated By">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="dialog-button">Cancel</button>
+            <button type="submit" mat-button cdkFocusInitial class="dialog-button" [disabled]="!clientFile.valid">Submit</button>
+    </mat-dialog-actions>
+</form>
+

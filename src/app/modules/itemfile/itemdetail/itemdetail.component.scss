@@ -1,0 +1,25 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+.mat-dialog-title {
+ padding: 15px 1px;
+ text-align: center;
+  background-color: #13316d;
+    color:white;
+}
+
+.dialog-button {
+  background-color: #13316d;
+  color:white;
+}
+.mat-form-field {
+  width: 290px;
+}
+.row {
+  height: 50px;
+}

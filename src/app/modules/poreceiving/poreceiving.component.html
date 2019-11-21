@@ -1,0 +1,169 @@
+<hr>
+<form [formGroup]="itemFile" (submit) ="onSubmit()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="poHeadId" matInput placeholder="Purchase order No." #poid 
+                    (keyup.enter)="onChangePoHeadId(poid.value)">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="id" matInput placeholder="R.R. Number" #rrid 
+                    (keyup.enter)="onChangeId(rrid.value)">
+                </mat-form-field>
+            </div>
+             <div class="col-sm-3">
+                <mat-form-field autocomplete="off">
+                    <input formControlName="rrDate" 
+                    [matDatepicker]="rrDate" 
+                    matInput placeholder="Receiving Order Date"
+                    [max]="maxRrDate">
+                    <mat-datepicker-toggle matSuffix [for]="rrDate"></mat-datepicker-toggle>
+                    <mat-datepicker #rrDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="baseAmount" matInput placeholder="Base Amount">
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <mat-form-field>
+                    <mat-label>Supplier Code</mat-label>
+                    <mat-select   formControlName="supplierId">
+                        <mat-option *ngFor="let item of clients" [value]="item.id">
+                        {{item.clientName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="terms" matInput placeholder="Terms of Payment">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="referenceNo" matInput placeholder="Supplier Reference No.">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="vatAmount" matInput placeholder="Vat. Amount">
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="receivedBy" matInput placeholder="Receivied By">
+                </mat-form-field>
+            </div>
+            
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="checkedBy" matInput placeholder="Checked By">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="remarks" matInput placeholder="Remarks">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field  autocomplete="off">
+                    <input  formControlName="netAmount" matInput placeholder="Net Amount">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>
+    <div class="mygroup-button-row">
+        <button mat-button color="primary" mat-raised-button  (click)="onCreate()" matTooltip="add new item">
+          <mat-icon>add_shopping_cart</mat-icon> Add
+        </button>
+        <button mat-raised-button color="accent" matTooltip="save purchased information and start new order" mat-raised-button  (click)="onFinalize()">
+            <mat-icon>done</mat-icon> Confirm Invoice
+        </button>
+        <button mat-raised-button color="warn" matTooltip="print order form.." mat-raised-button  (click)="onPrintOrder()">
+            <mat-icon>print</mat-icon> Print
+        </button>
+        <button mat-raised-button color="warn" matTooltip="journalize entry.." mat-raised-button  (click)="ofClosePo()">
+            <mat-icon>input</mat-icon> Journalize
+        </button>
+    </div>
+    <div class="mat-elevation-z8 search-div">
+        <mat-table [dataSource]="listData" matSort>
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="itemId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Item Code</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.itemId}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Item Description</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="rrQty">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>RR Qty</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.rrQty}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="unit">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.unit}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="unitCost">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Unit Cost</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.unitCost}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="baseCost">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Base Cost</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.baseCost}}</mat-cell>
+              </ng-container>
+          <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.amount}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Command Buttons</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button mat-icon-button matTooltip="edit item" (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+                <button mat-icon-button matTooltip="delete item" color="warn" (click)="onDelete(row)"><mat-icon>delete_outline</mat-icon></button>
+                <button mat-icon-button matTooltip="purchased history" (click)="onEdit(row)"><mat-icon>date_range</mat-icon></button>
+                <button mat-icon-button matTooltip="booking journal" color="warn" (click)="onDelete(row)"><mat-icon>horizontal_split</mat-icon></button>
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="loading">
+              <mat-footer-cell *matFooterCellDef colspan="6">
+                Loading data...
+              </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+              <mat-footer-cell *matFooterCellDef colspan="6">
+                No data.
+              </mat-footer-cell>
+            </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+          <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+      
+        </mat-table>
+        <mat-paginator class="mat-table-header-color" [pageSizeOptions]="[8, 15, 25, 100]" [pageSize]="8" showFirstLastButtons></mat-paginator>
+    </div>
+

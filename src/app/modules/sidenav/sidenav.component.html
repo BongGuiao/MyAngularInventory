@@ -1,0 +1,91 @@
+<mat-sidenav-container>
+  <mat-sidenav 
+  class="sidenav"
+  [ngClass]="{hidden: !(isHandset | async)!.matches}"
+  fixedInViewport="false"
+  [attr.role]="isHandset ? 'dialog' : 'navigation'"
+  [mode]="!(isHandset | async)!.matches ? 'over' : 'side'"
+  [opened]="false" #snav>
+    <mat-nav-list>
+      <mat-list-item (click)="snav.close()">
+        <h4 matLine routerLink="/welcome"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active-link">
+        <mat-icon>face</mat-icon>
+        <span class="nav-caption">Home</span>
+      </h4>
+        
+      </mat-list-item>
+      <mat-list-item (click)="snav.close()">
+        <h4 matLine routerLink="/unittable"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active-link">Unit Table</h4>
+      </mat-list-item>
+      <mat-list-item (click)="snav.close()">
+        <h4 matLine routerLink="/group01"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLinkActive="active-link">Groupings</h4>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-icon-button (click)="snav.close()">
+          <mat-icon>eject</mat-icon>
+          <span class="nav-caption">Logout</span>
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="snavToggle(snav)" >
+        <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div><span fxFlex >
+          <a class="home-link" routerLink=".">{{ title }}</a>
+          </span>
+      </div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.sm>
+        <ul fxLayout fxLayoutGap="10px"  style="list-style: none;">
+          <li><a routerLink=".">Welcome</a></li>
+          <li><a routerLink="/department">Department</a></li>
+          <li>
+              <button mat-button [matMenuTriggerFor]="tran">Transaction</button>
+              <mat-menu #tran="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="receiving">Purchase Order</button>
+                  <button mat-menu-item [routerLink]="['/poreceiving']">Order Receiving</button>
+                  <button mat-menu-item [routerLink]="['/payment']">Paypal Payment</button>
+              </mat-menu>
+              <mat-menu #receiving="matMenu">
+                  <button mat-menu-item [routerLink]="['/purchaseorderrm']" [queryParams]="{id: 'RM'}">Raw Material</button>
+                  <button mat-menu-item [routerLink]="['/purchaseorderfg']" [queryParams]="{id: 'FG'}">Finished Good</button>
+              </mat-menu>
+              
+          </li>
+          <li>
+            <button mat-button [matMenuTriggerFor]="menu">Maintenance</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['/itemfile']">Item Master</button>
+              <button mat-menu-item [routerLink]="['/formulation']"  [queryParams]="{id: '0'}">Formulation</button>
+              <button mat-menu-item [routerLink]="['/supplier']" [queryParams]="{id: 'SU'}">Supplier File</button>
+              <button mat-menu-item [routerLink]="['/customer']" [queryParams]="{id: 'CU'}">Customer File</button>
+              <button mat-menu-item [matMenuTriggerFor]="groupings">Groupings</button>
+              <button mat-menu-item [routerLink]="['/department']">Department</button>
+              <button mat-menu-item [routerLink]="['/unit']">Unit Table</button>
+            </mat-menu>
+            <mat-menu #groupings="matMenu">
+              <button mat-menu-item [routerLink]="['/groupings01']" [queryParams]="{id: '01'}">Item Group</button>
+              <button mat-menu-item [routerLink]="['/groupings02']" [queryParams]="{id: '02'}">Major Group</button>
+              <button mat-menu-item [routerLink]="['/groupings03']" [queryParams]="{id: '03'}">Over Group</button>
+            </mat-menu>
+          </li>
+          <li><a routerLink=".">Logout</a></li>
+        </ul>
+          
+          
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!--  -->
