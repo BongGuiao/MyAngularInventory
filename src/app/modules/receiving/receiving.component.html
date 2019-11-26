@@ -1,4 +1,4 @@
-<hr>
+
 <form [formGroup]="itemFile" (submit) ="onSubmit()">
     <div class="container-fluid">
         <div class="row">
@@ -96,7 +96,7 @@
         <button mat-raised-button color="accent" matTooltip="save purchased information and start new order" mat-raised-button  (click)="onFinalize()">
             <mat-icon>save</mat-icon>Final Save
         </button>
-        <button mat-raised-button color="accent" matTooltip="print order form.." mat-raised-button  (click)="ofGenerateRequiredMaterials()">
+        <button *ngIf = "!isAlreadyExists" mat-raised-button color="accent" matTooltip="print order form.." mat-raised-button  (click)="ofGenerateRequiredMaterials()">
             <mat-icon>build</mat-icon>Generate Required Material
         </button>
         <button mat-raised-button color="warn" matTooltip="print order form.." mat-raised-button  (click)="onPrintOrder()">

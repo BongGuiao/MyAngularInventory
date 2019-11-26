@@ -1,7 +1,9 @@
+
 import { Component, OnInit, Inject , ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar } from '@angular/material';
 import { ItemFormulationService } from 'src/app/shared/itemformulation.service';
+import { PoHeadService } from 'src/app/shared/pohead.service';
 import { Itemfile } from 'src/app/shared/itemfile.model';
 import { RawMaterialcte } from './../../../shared/rawmaterialcte.model';
 import { ItemFormulation } from 'src/app/shared/itemformulation.model';
@@ -18,7 +20,6 @@ export class IngredientsComponent implements OnInit {
   title = 'Item Formulation';
   itemFile = this.service.form;
   itemList: Itemfile[] = [];
-  rawMatList: RawMaterialcte[] = [];
   unitValue: number;
 
   formData: ItemFormulation;
@@ -29,29 +30,18 @@ export class IngredientsComponent implements OnInit {
   searchKey: string;
   constructor(@Inject(MAT_DIALOG_DATA)  public data,
               public dialogRef: MatDialogRef<IngredientsComponent >,
-              private service: ItemFormulationService) {
+              private service: ItemFormulationService,
+              private poService: PoHeadService) {
     this.formData = data.dataRow;
   }
   ngOnInit() {
     this.getItemList();
   }
 
-  onSubmit() {
-    this.formData = this.itemFile.value;
-    if (this.data.idx == null) {
-      this.service.addItems (this.formData)
-      .subscribe(resp => {console.log(resp); });
-    } else {
-      this.service.updateItems(this.formData, this.data.dataRow)
-      .subscribe(resp => { console.log(resp); });
-    }
-    this.close();
-  }
   getItemList() {
     this.service.generateRequiredIngredients(this.data.poId.id)
-    .subscribe(response => { this.rawMatList = response;
-                             console.log(response);
-                             this.listData = new MatTableDataSource(response);
+    .subscribe(response => { this.listData = new MatTableDataSource(response);
+                             this.poService.rawMatList = response;
                              this.listData.sort = this.sort;
                              this.listData.paginator = this.paginator; }
     , error => {console.log(error); } );

@@ -4,8 +4,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PoHead } from './pohead.model';
+import { RawMaterialcte } from './rawmaterialcte.model';
 import { PurchaseOrder } from './purchaseorder.model';
 import { DatePipe } from '@angular/common';
+
 
 
 @Injectable({
@@ -16,6 +18,7 @@ export class PoHeadService {
     itemClass = 'FG';
     formData: PoHead;
     items: PoHead[];
+    rawMatList: RawMaterialcte[] = [];
     isValidPohead: boolean;
     orders: PurchaseOrder;
     form: FormGroup = new FormGroup({
@@ -58,6 +61,7 @@ export class PoHeadService {
     getPoHead(id: any) {
       return this.http.get<PoHead>('http://localhost:34905/api/purchaseorder/getbypoid/' + id);
     }
+
     getItem(id: any) {
         return this.http.get<PurchaseOrder>('http://localhost:34905/api/purchaseorder/' + id);
     }
@@ -66,6 +70,20 @@ export class PoHeadService {
     }
     addPoHead(item: PoHead) {
       return this.http.post<PoHead>('http://localhost:34905/api/purchaseorder', item, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      });
+    }
+    getDrHeadRawMaterialByPoId(id: any) {
+      return this.http.get<any>('http://localhost:34905/api/drrawmaterial/getbypoid/' + id);
+    }
+    generateRawMaterialByPoId(id: any) {
+      return this.http.get<any>('http://localhost:34905/api/drrawmaterial/' + id);
+    }
+
+    generateDetailRawMaterial(id: any) {
+      return this.http.post<any>('http://localhost:34905/api/drrawmaterial/' + id, this.rawMatList, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })

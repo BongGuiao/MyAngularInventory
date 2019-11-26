@@ -8,10 +8,10 @@ import { DialogService } from './../../shared/dialog.service';
 import { PurchaseOrder } from 'src/app/shared/purchaseorder.model';
 import { Client } from './../../shared/client.model';
 import { PoHead } from './../../shared/pohead.model';
+import { RawMaterialcte } from 'src/app/shared/rawmaterialcte.model';
 import { PoDetailReceipt } from './../../shared/podetailreceipt.model';
 import { ReceivingdetailComponent } from './receivingdetail/receivingdetail.component';
 import { IngredientsComponent } from './../formulation/ingredients/ingredients.component';
-
 @Component({
   selector: 'app-receiving',
   templateUrl: './receiving.component.html',
@@ -31,9 +31,11 @@ export class ReceivingComponent implements OnInit {
               }
    poHead: PoHead;
    poReceipts: PoDetailReceipt[] = [];
+   rawMatList: RawMaterialcte[] = [];
    clients: Client[];
    orders: PurchaseOrder;
    isLoaded =  false;
+   isAlreadyExists = false;
    poId: number;
    poAmount: number;
    public poItemHead: PoHead;
@@ -156,9 +158,19 @@ export class ReceivingComponent implements OnInit {
     dialogConfig.width = '50%';
     dialogConfig.height = '50%';
     const poId = this.poHead;
-    dialogConfig.data = {idx, dataRow, poId};
-    this.dialog.open(IngredientsComponent, dialogConfig).afterClosed().subscribe(result => { this.refreshTable(); });
+    const matList = this.rawMatList;
+    dialogConfig.data = {idx, dataRow, poId, matList};
+    this.dialog.open(IngredientsComponent, dialogConfig)
+    .afterClosed().subscribe(result => { if (result) {
+      this.service.generateRawMaterialByPoId(this.poHead.id).subscribe( res => { this.ofGenerateDetailedRawMaterial(res.id); 
+                                                                                 this.isAlreadyExists = true;});
+    }
 
+     });
+
+  }
+  ofGenerateDetailedRawMaterial(id) {
+    this.service.generateDetailRawMaterial(id).subscribe(result => { console.log(result); });
   }
   ofValidatePo(): boolean {
     if (this.poHead.id === 0) {
@@ -196,6 +208,7 @@ export class ReceivingComponent implements OnInit {
   onChangeId(newValue: number) {
       this.poId = newValue;
       this.getPoHead();
+      this.getDrHeadRawMaterialByPoId();
   }
    onSearchClear() {
     this.searchKey = '';
@@ -210,6 +223,11 @@ export class ReceivingComponent implements OnInit {
       this.poAmount += element.amount;
     });
     this.poHead.poAmount = this.poAmount;
+  }
+  getDrHeadRawMaterialByPoId() {
+    this.isAlreadyExists = false;
+    this.service.getDrHeadRawMaterialByPoId(this.poId)
+    .subscribe( isExists => { this.isAlreadyExists = isExists; });
   }
 
   applyFilter() {
